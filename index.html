@@ -1,162 +1,241 @@
 <!DOCTYPE html>
-<html lang="it">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Ombre di Luce | Disarmo Nucleare</title>
+    <title>Shadows of Light | Nuclear Disarmament</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
     <style>
-        /* Stili Generali */
-        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; line-height: 1.6; margin: 0; padding: 0; background-color: #f4f4f9; color: #333; }
-        h1, h2, h3 { color: #2c3e50; }
+        /* Custom Styles to complement Bootstrap */
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background-color: #f8f9fa; }
+        .hero-section { background-color: #2c3e50; color: white; padding: 4rem 0; }
+        .nav-pills .nav-link { color: #fff; cursor: pointer; margin: 0.2rem; transition: all 0.3s ease; }
+        .nav-pills .nav-link:hover { background-color: rgba(255,255,255,0.1); }
+        .nav-pills .nav-link.active { background-color: #e74c3c; font-weight: bold; }
         
-        /* Header e Navigazione */
-        header { background: #2c3e50; color: #fff; padding: 2rem 0; text-align: center; }
-        header p { font-size: 1.2rem; font-style: italic; opacity: 0.9; max-width: 600px; margin: 10px auto 0; }
-        nav { display: flex; justify-content: center; flex-wrap: wrap; background: #34495e; padding: 0.5rem; position: sticky; top: 0; z-index: 100; }
-        nav button { background: none; border: none; color: white; padding: 12px 20px; cursor: pointer; font-size: 1rem; transition: background 0.3s; font-weight: bold; }
-        nav button:hover, nav button.active { background: #e74c3c; border-radius: 4px; }
+        /* Section Animations */
+        .content-section { display: none; animation: fadeIn 0.5s ease-in-out; }
+        .content-section.active { display: block; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(15px); } to { opacity: 1; transform: translateY(0); } }
 
-        /* Contenitore Principale */
-        .container { max-width: 900px; margin: 2rem auto; padding: 0 20px; min-height: 60vh; }
-        section { display: none; background: white; padding: 2.5rem; border-radius: 8px; box-shadow: 0 4px 15px rgba(0,0,0,0.1); animation: fadeIn 0.6s ease-in-out; }
-        section.active { display: block; }
-        
-        /* Animazione */
-        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+        /* Tragedy Section (Dark Theme) */
+        #tragedy { background-color: #1a1a1a; color: #f8f9fa; border-left: 5px solid #e74c3c; }
+        #tragedy blockquote { font-style: italic; color: #adb5bd; border-left: 3px solid #e74c3c; padding-left: 1rem; }
 
-        /* Stile specifico per la Tragedia (Tema Scuro) */
-        #tragedia { background: #1a1a1a; color: #e0e0e0; }
-        #tragedia h2 { color: #e74c3c; border-bottom: 2px solid #e74c3c; padding-bottom: 10px; }
-        #tragedia blockquote { border-left: 4px solid #e74c3c; margin: 0; padding-left: 15px; font-style: italic; color: #ccc; }
-
-        /* Stile Call to Action */
-        .cta-box { text-align: center; background: #e8f4f8; padding: 2rem; border-radius: 8px; margin-top: 2rem; border: 2px dashed #3498db; }
-        .crane-btn { background: #e74c3c; color: white; border: none; padding: 15px 30px; font-size: 1.2rem; border-radius: 50px; cursor: pointer; transition: all 0.3s; font-weight: bold; margin-top: 20px; box-shadow: 0 4px 6px rgba(231, 76, 60, 0.4); }
-        .crane-btn:hover { background: #c0392b; transform: scale(1.05); }
-        .counter-display { font-size: 3rem; font-weight: bold; color: #2c3e50; margin: 15px 0; }
-        
-        footer { text-align: center; padding: 2rem; background: #2c3e50; color: white; margin-top: 2rem; font-size: 0.9rem; }
+        /* Call to Action Custom Elements */
+        .crane-btn { background-color: #e74c3c; color: white; border: none; padding: 15px 30px; font-size: 1.2rem; border-radius: 50px; font-weight: bold; transition: transform 0.2s, box-shadow 0.2s; }
+        .crane-btn:hover { background-color: #c0392b; transform: scale(1.05); box-shadow: 0 5px 15px rgba(231, 76, 60, 0.4); color: white;}
+        .counter-display { font-size: 4rem; font-weight: bold; color: #2c3e50; }
     </style>
 </head>
 <body>
 
-    <header>
-        <h1>Ombre di Luce</h1>
-        <p>Il punto di non ritorno: dalla scoperta scientifica all'orrore della distruzione di massa.</p>
+    <header class="hero-section text-center shadow-sm">
+        <div class="container">
+            <h1 class="display-4 fw-bold">Shadows of Light</h1>
+            <p class="lead fst-italic mt-3">The point of no return: from scientific discovery to the horror of mass destruction.</p>
+        </div>
     </header>
 
-    <nav>
-        <button class="active" onclick="cambiaSezione('intro', this)">1. Introduzione</button>
-        <button onclick="cambiaSezione('origini', this)">2. Le Origini</button>
-        <button onclick="cambiaSezione('tragedia', this)">3. La Tragedia</button>
-        <button onclick="cambiaSezione('dopoguerra', this)">4. Il Dopoguerra</button>
-        <button onclick="cambiaSezione('cta', this)">5. Call to Action</button>
+    <nav class="bg-dark sticky-top shadow-sm py-2">
+        <div class="container">
+            <ul class="nav nav-pills justify-content-center" id="mainNav">
+                <li class="nav-item"><a class="nav-link active" onclick="showSection('intro', this)">1. Introduction</a></li>
+                <li class="nav-item"><a class="nav-link" onclick="showSection('origins', this)">2. The Origins</a></li>
+                <li class="nav-item"><a class="nav-link" onclick="showSection('tragedy', this)">3. The Tragedy</a></li>
+                <li class="nav-item"><a class="nav-link" onclick="showSection('aftermath', this)">4. The Aftermath</a></li>
+                <li class="nav-item"><a class="nav-link" onclick="showSection('cta', this)">5. Call to Action</a></li>
+            </ul>
+        </div>
     </nav>
 
-    <div class="container">
-        
-        <section id="intro" class="active">
-            <h2>Benvenuti</h2>
-            <p>Il 1945 ha segnato una frattura irreversibile nella storia umana. Questo progetto esplora il drammatico passaggio dalla meraviglia della scoperta scientifica alla fredda realtà della distruzione di massa.</p>
-            <p><strong>Il nostro obiettivo:</strong> Dimostrare alla classe che l'esistenza delle armi nucleari non è una semplice questione politica o militare discostata dalle nostre vite, ma rappresenta la più urgente e grande minaccia umanitaria del nostro tempo.</p>
-            <p><em>Progetto a cura di: Balzano, Varsallona, Scramuzza.</em></p>
+    <main class="container my-5" style="min-height: 50vh;">
+
+        <section id="intro" class="content-section active bg-white p-5 rounded shadow-sm">
+            <h2 class="fw-bold text-secondary border-bottom pb-2 mb-4">Welcome</h2>
+            <p class="fs-5">The year 1945 marked an irreversible fracture in human history. This project explores the dramatic shift from the marvel of scientific discovery to the cold reality of mass destruction.</p>
+            <div class="alert alert-primary mt-4" role="alert">
+                <h5 class="alert-heading fw-bold">Our Goal</h5>
+                <p class="mb-0">To demonstrate to the class that the existence of nuclear weapons is not merely a distant political or military issue, but the most urgent humanitarian threat of our time.</p>
+            </div>
+            <p class="text-muted mt-4"><em>Curated by: Balzano, Varsallona, Scramuzza.</em></p>
         </section>
 
-        <section id="origini">
-            <h2>Perché è stata creata la bomba?</h2>
-            <p>La bomba atomica non è nata da un intrinseco desiderio di distruggere, ma dal terrore globale. Durante la Seconda Guerra Mondiale, la comunità scientifica alleata temeva che la Germania nazista arrivasse per prima a sviluppare un'arma nucleare.</p>
-            <ul>
-                <li><strong>1939 - L'allarme:</strong> Albert Einstein firma una lettera per il Presidente USA Roosevelt, avvertendolo del potenziale distruttivo della fissione nucleare.</li>
-                <li><strong>Il Progetto Manhattan:</strong> Gli Stati Uniti avviano una massiccia iniziativa segreta, riunendo le menti più brillanti del mondo (inclusi molti rifugiati europei).</li>
-                <li><strong>Il Punto di Svolta:</strong> L'obiettivo iniziale era la deterrenza. Tuttavia, quando la Germania si arrese nel maggio 1945, il progetto non fu fermato. L'arma fu usata contro il Giappone per forzare una resa rapida e, parallelamente, per stabilire la supremazia americana nel mondo post-bellico.</li>
-            </ul>
-        </section>
-
-        <section id="tragedia">
-            <h2>Cosa è successo a Hiroshima e Nagasaki?</h2>
-            <p>Il 6 agosto (Hiroshima) e il 9 agosto 1945 (Nagasaki), l'umanità ha assistito al potere annientatore dell'atomo. Intere città sono state vaporizzate in pochi istanti.</p>
+        <section id="origins" class="content-section bg-white p-5 rounded shadow-sm">
+            <h2 class="fw-bold text-secondary border-bottom pb-2 mb-4">Why was the bomb created?</h2>
+            <p class="fs-5 mb-4">The atomic bomb was not born from an intrinsic desire to destroy, but from global terror. During World War II, the Allied scientific community feared that Nazi Germany would be the first to develop a nuclear weapon.</p>
             
-            <h3>Gli Hibakusha: I Sopravvissuti</h3>
-            <blockquote>
-                "Abbiamo visto un lampo accecante, il pika, e poi siamo stati travolti dal don, un boato indescrivibile. Il mondo è diventato improvvisamente silenzioso e grigio."
+            <div class="row g-4">
+                <div class="col-md-4">
+                    <div class="card h-100 border-0 shadow-sm bg-light">
+                        <div class="card-body">
+                            <h5 class="card-title fw-bold">1939: The Warning</h5>
+                            <p class="card-text">Albert Einstein signed a letter to US President Roosevelt, warning him of the destructive potential of nuclear fission.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="card h-100 border-0 shadow-sm bg-light">
+                        <div class="card-body">
+                            <h5 class="card-title fw-bold">The Manhattan Project</h5>
+                            <p class="card-text">The US launched a massive secret initiative, gathering the world's brightest minds, including many European refugees.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="card h-100 border-0 shadow-sm bg-light">
+                        <div class="card-body">
+                            <h5 class="card-title fw-bold">The Turning Point</h5>
+                            <p class="card-text">Initially meant for deterrence. However, after Germany surrendered, the weapon was used against Japan to force a quick end to the war and establish US post-war supremacy.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="tragedy" class="content-section p-5 rounded shadow-lg">
+            <h2 class="fw-bold border-bottom border-danger pb-2 mb-4 text-danger">What happened in Hiroshima and Nagasaki?</h2>
+            <p class="fs-5">On August 6 (Hiroshima) and August 9, 1945 (Nagasaki), humanity witnessed the annihilating power of the atom. Entire cities were vaporized in mere moments.</p>
+            
+            <h4 class="mt-5 mb-3 text-white">The Hibakusha: The Survivors</h4>
+            <blockquote class="mb-4">
+                "We saw a blinding flash, the 'pika', and then we were overwhelmed by the 'don', an indescribable roar. The world suddenly went silent and gray."
             </blockquote>
-            <p>Il termine <em>Hibakusha</em> significa "persone colpite dall'esplosione". Le loro testimonianze raccontano di:</p>
-            <ul>
-                <li>Persone letteralmente tramutate in ombre impresse sui muri.</li>
-                <li>Una spaventosa "pioggia nera" radioattiva che cadeva dal cielo, contaminando acqua e terra.</li>
-                <li>Decenni di sofferenze: malattie da radiazioni (leucemia, tumori), discriminazione sociale e il trauma psicologico incancellabile.</li>
-            </ul>
-            <p>Le loro voci sono il monito più forte che abbiamo contro le armi nucleari.</p>
-        </section>
-
-        <section id="dopoguerra">
-            <h2>Come è cambiato il mondo dopo l'agosto 1945?</h2>
-            <p>L'uso della bomba ha posto fine alla Seconda Guerra Mondiale, ma ha immediatamente inaugurato la <strong>Guerra Fredda</strong> e l'era del terrore nucleare.</p>
-            <ul>
-                <li><strong>La Corsa agli Armamenti:</strong> USA e URSS hanno iniziato a competere accumulando decine di migliaia di testate, arrivando a sviluppare la devastante Bomba all'Idrogeno.</li>
-                <li><strong>La Dottrina della MAD (Distruzione Mutua Assicurata):</strong> L'equilibrio mondiale si basava sulla certezza che un attacco avrebbe portato all'annientamento di entrambi i blocchi.</li>
-                <li><strong>La nascita del Movimento per la Pace:</strong> In risposta, la società civile, gli scienziati e le Nazioni Unite hanno iniziato a lavorare per la non proliferazione. Il messaggio è chiaro: la sicurezza globale non si ottiene minacciando la distruzione della Terra, ma eliminando queste armi.</li>
-            </ul>
-        </section>
-
-        <section id="cta">
-            <h2>Il nostro invito: 1.000 Gru per il Disarmo</h2>
-            <p>Conoscete la storia di <strong>Sadako Sasaki</strong>? Aveva due anni quando la bomba cadde su Hiroshima. A dodici anni si ammalò di leucemia. Ricordando un'antica leggenda, iniziò a piegare gru di origami: si dice che chi ne piega 1.000 vedrà esaudito un proprio desiderio. Il suo era la pace nel mondo.</p>
             
-            <div class="cta-box">
-                <h3>Azione di Classe: Costruiamo la Pace</h3>
-                <p>Oggi vi chiediamo di compiere un gesto simbolico ma potente. Cliccate il pulsante qui sotto per piegare la vostra "gru virtuale" per la nostra classe, come impegno a non dimenticare.</p>
-                
-                <div class="counter-display" id="contatore">0</div>
-                <p>Gru piegate dalla classe</p>
-                
-                <button class="crane-btn" onclick="piegaGru()">Piega una Gru Virtuale 🕊️</button>
+            <p>The term <em>Hibakusha</em> translates to "explosion-affected people". Their testimonies reveal unimaginable horrors:</p>
+            <ul class="list-group list-group-flush mb-4 rounded">
+                <li class="list-group-item bg-dark text-light border-secondary">People literally turned into shadows imprinted on walls.</li>
+                <li class="list-group-item bg-dark text-light border-secondary">A terrifying radioactive "black rain" falling from the sky, contaminating water and soil.</li>
+                <li class="list-group-item bg-dark text-light border-secondary">Decades of suffering: radiation sickness (leukemia, tumors), social discrimination, and inescapable psychological trauma.</li>
+            </ul>
+            <p class="fw-bold text-danger">Their voices serve as our most powerful warning against the use of nuclear weapons.</p>
+        </section>
+
+        <section id="aftermath" class="content-section bg-white p-5 rounded shadow-sm">
+            <h2 class="fw-bold text-secondary border-bottom pb-2 mb-4">How did the world change after August 1945?</h2>
+            <p class="fs-5">The use of the bomb ended WWII but immediately ushered in the <strong>Cold War</strong> and the era of nuclear terror.</p>
+            
+            <div class="accordion mt-4" id="aftermathAccordion">
+                <div class="accordion-item">
+                    <h2 class="accordion-header">
+                        <button class="accordion-button fw-bold" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne">
+                            The Arms Race
+                        </button>
+                    </h2>
+                    <div id="collapseOne" class="accordion-collapse collapse show" data-bs-parent="#aftermathAccordion">
+                        <div class="accordion-body">
+                            The USA and USSR began competing to stockpile tens of thousands of warheads, eventually developing the vastly more destructive Hydrogen Bomb.
+                        </div>
+                    </div>
+                </div>
+                <div class="accordion-item">
+                    <h2 class="accordion-header">
+                        <button class="accordion-button collapsed fw-bold" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo">
+                            Mutually Assured Destruction (MAD)
+                        </button>
+                    </h2>
+                    <div id="collapseTwo" class="accordion-collapse collapse" data-bs-parent="#aftermathAccordion">
+                        <div class="accordion-body">
+                            Global stability was based on the terrifying certainty that a nuclear attack would lead to the total annihilation of both sides.
+                        </div>
+                    </div>
+                </div>
+                <div class="accordion-item">
+                    <h2 class="accordion-header">
+                        <button class="accordion-button collapsed fw-bold" type="button" data-bs-toggle="collapse" data-bs-target="#collapseThree">
+                            The Peace Movement
+                        </button>
+                    </h2>
+                    <div id="collapseThree" class="accordion-collapse collapse" data-bs-parent="#aftermathAccordion">
+                        <div class="accordion-body">
+                            In response, civil society, scientists, and the UN began advocating for non-proliferation. The message is clear: global security is not achieved by threatening to destroy the Earth, but by eliminating these weapons.
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="cta" class="content-section bg-white p-5 rounded shadow-sm">
+            <h2 class="fw-bold text-secondary border-bottom pb-2 mb-4">Our Call: 1,000 Cranes for Disarmament</h2>
+            
+            <div class="row align-items-center mb-5">
+                <div class="col-lg-8">
+                    <p class="fs-5">Do you know the story of <strong>Sadako Sasaki</strong>? She was two years old when the bomb fell on Hiroshima. At age twelve, she developed leukemia. Remembering an ancient legend, she began folding origami cranes: it is said that anyone who folds 1,000 cranes will be granted a wish. Hers was for world peace.</p>
+                </div>
+                <div class="col-lg-4 text-center">
+                    <span style="font-size: 5rem;">🕊️</span>
+                </div>
             </div>
             
-            <h3 style="margin-top: 2rem;">Il prossimo passo reale:</h3>
-            <p>Raccoglieremo firme in classe per inviare una lettera aperta ai nostri rappresentanti locali, chiedendo loro di sostenere pubblicamente il <strong>Trattato per la Proibizione delle Armi Nucleari (TPNW)</strong>.</p>
+            <div class="card border-primary shadow-sm text-center p-4 bg-light">
+                <h3 class="text-primary fw-bold">Class Action: Let's Build Peace</h3>
+                <p class="mb-4">Today we ask you to make a symbolic but powerful gesture. Click the button below to fold a "virtual crane" for our class, as a pledge never to forget.</p>
+                
+                <div class="counter-display" id="craneCounter">0</div>
+                <p class="text-muted fw-bold text-uppercase tracking-wider">Cranes folded by the class</p>
+                
+                <div>
+                    <button class="crane-btn" onclick="foldCrane()">Fold a Virtual Crane 🕊️</button>
+                </div>
+            </div>
+            
+            <div class="mt-5 alert alert-warning border-warning">
+                <h4 class="alert-heading fw-bold"><i class="bi bi-pen"></i> The Next Real Step:</h4>
+                <p class="mb-0">We will collect signatures in class for an open letter to our local representatives, urging them to publicly support the <strong>Treaty on the Prohibition of Nuclear Weapons (TPNW)</strong>.</p>
+            </div>
         </section>
 
-    </div>
+    </main>
 
-    <footer>
-        <p>Progetto scolastico sul disarmo nucleare. Realizzato per sensibilizzare, non per dimenticare.</p>
+    <footer class="bg-dark text-white text-center py-4 mt-auto">
+        <div class="container">
+            <p class="mb-0">School project on nuclear disarmament. Created to raise awareness, never to forget.</p>
+        </div>
     </footer>
 
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    
     <script>
-        // Funzione per navigare tra le sezioni
-        function cambiaSezione(idSezione, bottone) {
-            // Nascondi tutte le sezioni
-            document.querySelectorAll('section').forEach(sec => sec.classList.remove('active'));
-            // Rimuovi la classe active da tutti i bottoni
-            document.querySelectorAll('nav button').forEach(btn => btn.classList.remove('active'));
+        // Navigation Logic
+        function showSection(sectionId, clickedElement) {
+            // Hide all sections
+            const sections = document.querySelectorAll('.content-section');
+            sections.forEach(sec => sec.classList.remove('active'));
             
-            // Mostra la sezione scelta e attiva il bottone
-            document.getElementById(idSezione).classList.add('active');
-            bottone.classList.add('active');
+            // Remove active class from all nav links
+            const navLinks = document.querySelectorAll('.nav-link');
+            navLinks.forEach(link => link.classList.remove('active'));
             
-            // Torna in cima alla pagina delicatamente
+            // Show target section and highlight nav link
+            document.getElementById(sectionId).classList.add('active');
+            clickedElement.classList.add('active');
+            
+            // Scroll to top smoothly
             window.scrollTo({ top: 0, behavior: 'smooth' });
         }
 
-        // Funzione per il contatore interattivo delle gru
-        let conteggioGru = 0;
-        function piegaGru() {
-            conteggioGru++;
-            document.getElementById('contatore').innerText = conteggioGru;
+        // Interactive Crane Counter
+        let craneCount = 0;
+        function foldCrane() {
+            craneCount++;
+            const display = document.getElementById('craneCounter');
+            display.innerText = craneCount;
             
-            // Effetto visivo rapido
-            let display = document.getElementById('contatore');
+            // Visual feedback effect
             display.style.color = '#e74c3c';
             display.style.transform = 'scale(1.2)';
+            display.style.transition = 'all 0.2s';
             
             setTimeout(() => {
                 display.style.color = '#2c3e50';
                 display.style.transform = 'scale(1)';
             }, 200);
 
-            if(conteggioGru === 25) {
-                alert("Fantastico! Abbiamo raggiunto le 25 gru. Immaginate l'impatto se tutti noi ne piegassimo una di carta da unire in un'installazione a scuola!");
+            // Milestone alert
+            if(craneCount === 25) {
+                setTimeout(() => {
+                    alert("Amazing! We've reached 25 cranes. Imagine the impact if we all folded real paper ones for a school installation!");
+                }, 300);
             }
         }
     </script>
